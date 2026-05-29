@@ -10,15 +10,15 @@ $$
 
 where:
 
-* $w$ = model weights
-* $\eta$ = learning rate
-* $L$ = loss function
+- $w$ = model weights
+- $\eta$ = learning rate
+- $L$ = loss function
 
 ---
 
 # 1. Batch Gradient Descent (BGD)
 
-In **Batch Gradient Descent**, the gradient is computed using the **entire training dataset** before every weight update.
+In **Batch Gradient Descent (BGD)**, the gradient is computed using the **entire training dataset** before every weight update.
 
 Suppose:
 
@@ -28,8 +28,8 @@ $$
 
 where:
 
-* $n$ = number of samples
-* $m$ = number of features
+- $n$ = number of samples
+- $m$ = number of features
 
 After adding the intercept column:
 
@@ -49,7 +49,7 @@ $$
 \hat{y} = Xw
 $$
 
-Residual/Error:
+Residual (Error):
 
 $$
 e = \hat{y} - y
@@ -58,9 +58,8 @@ $$
 For Ridge Regression, the gradient is:
 
 $$
-\frac{\partial L}{\partial w}
-=============================
-
+\nabla_w L
+=
 \frac{1}{n}X^T(Xw-y)
 +
 \alpha w
@@ -72,14 +71,13 @@ $$
 \text{penalty}[0] = 0
 $$
 
-Thus the update rule becomes:
+The weight update rule becomes:
 
 $$
 w
 =
-
-## w
-
+w
+-
 \eta
 \left(
 \frac{1}{n}X^T(Xw-y)
@@ -88,7 +86,7 @@ w
 \right)
 $$
 
-## BGD Code Pattern
+## BGD Implementation
 
 ```python
 for epoch in range(epochs):
@@ -106,20 +104,20 @@ for epoch in range(epochs):
     weights = weights - learning_rate * gradient
 ```
 
-### Key Points
+### Key Characteristics
 
-* Uses the entire dataset to compute one gradient.
-* Performs one weight update per epoch.
-* Produces stable and accurate gradients.
-* Loss decreases smoothly.
-* Computationally expensive for large datasets.
-* Requires loading all training samples for each update.
+- Uses the entire dataset for each gradient computation.
+- Performs one update per epoch.
+- Produces stable and accurate gradients.
+- Loss decreases smoothly.
+- Computationally expensive for large datasets.
+- Higher memory requirements.
 
 ---
 
 # 2. Stochastic Gradient Descent (SGD)
 
-In **Stochastic Gradient Descent**, the gradient is computed using **one training sample at a time**.
+In **Stochastic Gradient Descent (SGD)**, the gradient is computed using **one training sample at a time**.
 
 For a single sample:
 
@@ -133,18 +131,17 @@ $$
 \hat{y}_i = x_i^T w
 $$
 
-Residual/Error:
+Residual:
 
 $$
 e_i = \hat{y}_i - y_i
 $$
 
-Gradient for Ridge Regression:
+Gradient:
 
 $$
-\frac{\partial L}{\partial w}
-=============================
-
+\nabla_w L
+=
 x_i(\hat{y}_i - y_i)
 +
 \alpha w
@@ -161,9 +158,8 @@ Update rule:
 $$
 w
 =
-
-## w
-
+w
+-
 \eta
 \left(
 x_i(\hat{y}_i-y_i)
@@ -172,7 +168,7 @@ x_i(\hat{y}_i-y_i)
 \right)
 $$
 
-## SGD Code Pattern
+## SGD Implementation
 
 ```python
 for epoch in range(epochs):
@@ -200,21 +196,21 @@ for epoch in range(epochs):
         )
 ```
 
-### Key Points
+### Key Characteristics
 
-* Uses one sample for each gradient computation.
-* Performs $n$ updates per epoch.
-* Updates are much more frequent than BGD.
-* Faster and more memory-efficient for large datasets.
-* Gradient estimates are noisy.
-* Loss fluctuates instead of decreasing smoothly.
-* Noise can help escape saddle points and poor regions of the optimization landscape.
+- Uses one sample per gradient computation.
+- Performs multiple updates within an epoch.
+- Faster updates than Batch Gradient Descent.
+- Memory efficient.
+- Gradient estimates are noisy.
+- Loss fluctuates during training.
+- Often converges faster on large datasets.
 
 ---
 
-# Why Does SGD Perform $n$ Updates per Epoch?
+# Why Does SGD Perform n Updates Per Epoch?
 
-Suppose:
+Assume:
 
 $$
 n = 10,000
@@ -222,33 +218,27 @@ $$
 
 training samples.
 
-### Batch Gradient Descent
+## Batch Gradient Descent
 
-Compute gradient using all 10,000 rows:
-
-$$
-\nabla L =
-\frac{1}{n}
-X^T(Xw-y)
-$$
-
-Then perform:
+Compute one gradient using all samples:
 
 $$
-1
+\nabla_w L
+=
+\frac{1}{n}X^T(Xw-y)
 $$
 
-weight update.
+Then update weights once.
 
 Therefore:
 
 $$
-\text{Updates per epoch} = 1
+\text{Updates per Epoch} = 1
 $$
 
-### Stochastic Gradient Descent
+## Stochastic Gradient Descent
 
-Process rows one by one:
+Process samples individually:
 
 $$
 x_1 \rightarrow \text{update}
@@ -267,34 +257,52 @@ $$
 $$
 
 $$
-x_{10000} \rightarrow \text{update}
+x_n \rightarrow \text{update}
 $$
 
-Thus:
+Therefore:
 
 $$
-\text{Updates per epoch} = n
+\text{Updates per Epoch} = n
 $$
 
 ---
 
 # BGD vs SGD Comparison
 
-| Aspect               | Batch Gradient Descent (BGD) | Stochastic Gradient Descent (SGD) |
-| -------------------- | ---------------------------- | --------------------------------- |
-| Data used per update | Entire dataset               | One sample                        |
-| Updates per epoch    | 1                            | $n$                               |
-| Speed per update     | Slow                         | Fast                              |
-| Memory usage         | High                         | Low                               |
-| Gradient estimate    | Accurate                     | Noisy                             |
-| Loss curve           | Smooth                       | Fluctuating                       |
-| Convergence path     | Stable                       | Zig-zag                           |
-| Scalability          | Poor for large datasets      | Excellent                         |
-| Best suited for      | Small/Medium datasets        | Large datasets                    |
-| Computational cost   | High                         | Low                               |
+| Aspect | Batch Gradient Descent (BGD) | Stochastic Gradient Descent (SGD) |
+|----------|----------|----------|
+| Data used per update | Entire dataset | One sample |
+| Updates per epoch | 1 | n |
+| Speed per update | Slow | Fast |
+| Memory usage | High | Low |
+| Gradient estimate | Accurate | Noisy |
+| Loss curve | Smooth | Fluctuating |
+| Convergence path | Stable | Zig-zag |
+| Scalability | Poor for large datasets | Excellent |
+| Best suited for | Small to medium datasets | Large datasets |
+| Computational cost | High | Low |
 
 ---
 
-# Interview One-Liner
+# Interview Summary
 
-> Batch Gradient Descent computes the exact gradient using the entire dataset and performs one update per epoch, whereas Stochastic Gradient Descent approximates the gradient using a single sample and performs $n$ updates per epoch, making it significantly more scalable for large datasets but noisier during optimization.
+### Batch Gradient Descent
+
+- Uses the entire dataset to compute the gradient.
+- Performs one update per epoch.
+- Produces stable convergence.
+- Expensive for large datasets.
+
+### Stochastic Gradient Descent
+
+- Uses one sample to compute the gradient.
+- Performs n updates per epoch.
+- Converges faster on large datasets.
+- Introduces noise into optimization.
+
+---
+
+# One-Line Interview Answer
+
+> Batch Gradient Descent computes the exact gradient using the entire dataset and performs one update per epoch, whereas Stochastic Gradient Descent approximates the gradient using a single sample and performs n updates per epoch, making it more scalable but noisier during optimization.
