@@ -12,4 +12,5 @@ dependencies = [
     "matplotlib>=3.11.1",
     "seaborn>=0.13.2",
     "kneed>=0.8.6",
+    "kagglehub>=1.0.2",
 ]
