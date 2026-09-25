@@ -880,6 +880,7 @@ dependencies = [
     { name = "missingno" },
     { name = "numpy" },
     { name = "pandas" },
+    { name = "pyampute" },
     { name = "scikit-learn" },
     { name = "seaborn" },
 ]
@@ -894,6 +895,7 @@ requires-dist = [
     { name = "missingno", specifier = ">=0.5.2" },
     { name = "numpy" },
     { name = "pandas" },
+    { name = "pyampute", specifier = ">=0.0.3" },
     { name = "scikit-learn" },
     { name = "seaborn", specifier = ">=0.13.2" },
 ]
@@ -1241,6 +1243,22 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/cd/05/0a34433a064256a578f1783a10da6df098ceaa4a57bbeaa96a6c0352786b/pure_eval-0.2.3.tar.gz", hash = "sha256:5f4e983f40564c576c7c8635ae88db5956bb2229d7e9237d03b3c0b0190eaf42", size = 19752, upload-time = "2024-07-21T12:58:21.801Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/8e/37/efad0257dc6e593a18957422533ff0f87ede7c9c6ea010a2177d738fb82f/pure_eval-0.2.3-py3-none-any.whl", hash = "sha256:1db8e35b67b3d218d818ae653e27f06c3aa420901fa7b081ca98cbedc874e0d0", size = 11842, upload-time = "2024-07-21T12:58:20.04Z" },
+]
+
+[[package]]
+name = "pyampute"
+version = "0.0.3"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "matplotlib" },
+    { name = "numpy" },
+    { name = "pandas" },
+    { name = "scikit-learn" },
+    { name = "scipy" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/1f/a0/b8e745da3d1d0d3d486dc0221a7f49b37598f24fca88a80b0cbc7e1d63d3/pyampute-0.0.3.tar.gz", hash = "sha256:19525e5c67c320540670a33497424578dcb976bc699508db56f31b079ed3c7f9", size = 20262, upload-time = "2022-08-26T19:06:12.573Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/d2/82/1a82ae6526c939e4e5adce0784cf595fb957d947da539632afccaf4cf85f/pyampute-0.0.3-py3-none-any.whl", hash = "sha256:784c927b1228a14b95adf36048fb275f8388988e29acfbb34e11567e1b829008", size = 20655, upload-time = "2022-08-26T19:04:56.834Z" },
 ]
 
 [[package]]

@@ -15,4 +15,5 @@ dependencies = [
     "kagglehub>=1.0.2",
     "category-encoders>=2.11.1",
     "missingno>=0.5.2",
+    "pyampute>=0.0.3",
 ]
