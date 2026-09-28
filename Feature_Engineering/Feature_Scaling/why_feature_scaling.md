@@ -108,6 +108,8 @@ Instead say:
 
 ![alt text](gd_effect.png)
 
+🏔️ Narrow, elongated valley (loss surface) → gradient descent zig-zags → slower convergence
+
 ---
 
 # 4. Unscaled vs Scaled
