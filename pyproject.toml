@@ -16,4 +16,5 @@ dependencies = [
     "category-encoders>=2.11.1",
     "missingno>=0.5.2",
     "pyampute>=0.0.3",
+    "imblearn>=0.0",
 ]
